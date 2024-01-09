@@ -9,24 +9,35 @@ package com.mycompany.qldc;
  * @author Admin
  */
 public class DeCuong {
-    private int id;
+    private String id;
     private String mucTieu;
     private String chuanDauRa;
     private HeDaoTao he;
+    private GiangVien gV;
+    private MonHoc mh;
 
     public DeCuong(){}
     
+    public DeCuong(String id, String mucTieu, String chuanDauRa, HeDaoTao he, GiangVien gV, MonHoc mh){
+        this.chuanDauRa = chuanDauRa;
+        this.gV = gV;
+        this.he = he;
+        this.id = id;
+        this.mh = mh;
+        this.mucTieu = mucTieu;
+    }
+
     /**
      * @return the id
      */
-    public int getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -71,6 +82,33 @@ public class DeCuong {
     public void setHe(HeDaoTao he) {
         this.he = he;
     }
-    
+
+    /**
+     * @return the gV
+     */
+    public GiangVien getgV() {
+        return gV;
+    }
+
+    /**
+     * @param gV the gV to set
+     */
+    public void setgV(GiangVien gV) {
+        this.gV = gV;
+    }
+
+    /**
+     * @return the mh
+     */
+    public MonHoc getMh() {
+        return mh;
+    }
+
+    /**
+     * @param mh the mh to set
+     */
+    public void setMh(MonHoc mh) {
+        this.mh = mh;
+    }
     
 }

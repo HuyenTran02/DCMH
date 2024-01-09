@@ -4,7 +4,7 @@
  */
 package com.mycompany.qldc;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -15,27 +15,55 @@ public class MonHoc {
     private String ten;
     private String moTa;
     private float soTC;
+    private KhoiKienThuc kt;
+    private List<MonHoc> dstq;
+    private List<MonHoc> dstr;
     
-    public MonHoc(){}
-    
-    public boolean searchById(String id, ArrayList<MonHoc> mh){
-        for(MonHoc m : mh){
-            if(m.getId().equals(id)){
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public boolean searchByTen(String ten, ArrayList<MonHoc> mh){
-        for(MonHoc m : mh){
-            if(m.getTen().equals(id)){
-                return true;
-            }
-        }
-        return false;
+    public MonHoc() {}
+
+    public MonHoc(String id, String ten, String moTa, float soTC, KhoiKienThuc kt) {
+        this.id = id;
+        this.moTa = moTa;
+        this.soTC = soTC;
+        this.ten = ten;
+        this.kt = kt;
     }
 
+    public MonHoc(String id, String ten, String moTa, float soTC, KhoiKienThuc kt,
+            List<MonHoc> dstq, List<MonHoc> dstr) {
+        this.id = id;
+        this.moTa = moTa;
+        this.soTC = soTC;
+        this.ten = ten;
+        this.kt = kt;
+        this.dstq = dstq;
+        this.dstr = dstr;
+    }
+
+    public MonHoc(String id, String ten, String moTa, float soTC, KhoiKienThuc kt, 
+            List<MonHoc> dstr) {
+        this.id = id;
+        this.moTa = moTa;
+        this.soTC = soTC;
+        this.ten = ten;
+        this.kt = kt;
+        this.dstr = dstr;
+    }
+
+    public boolean checkList(MonHoc m) {
+        for (MonHoc mon : this.dstq) {
+            if (mon.equals(m) == true) {
+                return true;
+            }
+        }
+        for (MonHoc mon : this.dstr) {
+            if (mon.equals(m) == true) {
+                return true;
+            }
+        }
+        return false;
+    }
+     
     /**
      * @return the id
      */
@@ -90,5 +118,47 @@ public class MonHoc {
      */
     public void setSoTC(float soTC) {
         this.soTC = soTC;
+    }
+
+    /**
+     * @return the kt
+     */
+    public KhoiKienThuc getKt() {
+        return kt;
+    }
+
+    /**
+     * @param kt the kt to set
+     */
+    public void setKt(KhoiKienThuc kt) {
+        this.kt = kt;
+    }
+
+    /**
+     * @return the dstq
+     */
+    public List<MonHoc> getDstq() {
+        return dstq;
+    }
+
+    /**
+     * @param dstq the dstq to set
+     */
+    public void setDstq(List<MonHoc> dstq) {
+        this.dstq = dstq;
+    }
+
+    /**
+     * @return the dstr
+     */
+    public List<MonHoc> getDstr() {
+        return dstr;
+    }
+
+    /**
+     * @param dstr the dstr to set
+     */
+    public void setDstr(List<MonHoc> dstr) {
+        this.dstr = dstr;
     }
 }

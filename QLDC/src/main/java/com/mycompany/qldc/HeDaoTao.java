@@ -1,5 +1,7 @@
 package com.mycompany.qldc;
 
+import java.util.ArrayList;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -14,6 +16,21 @@ public class HeDaoTao {
     private String ten;
 
     public HeDaoTao(){}
+    
+    public HeDaoTao(int id, String ten){
+        this.id = id;
+        this.ten = ten;
+    }
+    
+//    public HeDaoTao searchById(int id, ArrayList<HeDaoTao> he){
+//        HeDaoTao h = new HeDaoTao();
+//        for(HeDaoTao d:he){
+//            if(d.getId() == id){
+//                h = d;
+//            }
+//        }
+//        return h;
+//    }
     
 //    public HeDaoTao(String ten){
 //        this.id = 

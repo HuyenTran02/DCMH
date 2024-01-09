@@ -8,6 +8,68 @@ package com.mycompany.qldc;
  *
  * @author Admin
  */
-public class HinhThucDanhGia {
+public abstract class HinhThucDanhGia {
+    private int ma;
+    private String phuongPDG;
+    private String noiDung;
+    private float tiTrong;
     public HinhThucDanhGia(){}
+    public abstract void them();
+    public abstract void xoa();
+
+    /**
+     * @return the ma
+     */
+    public int getMa() {
+        return ma;
+    }
+
+    /**
+     * @param ma the ma to set
+     */
+    public void setMa(int ma) {
+        this.ma = ma;
+    }
+
+    /**
+     * @return the phuongPDG
+     */
+    public String getPhuongPDG() {
+        return phuongPDG;
+    }
+
+    /**
+     * @param phuongPDG the phuongPDG to set
+     */
+    public void setPhuongPDG(String phuongPDG) {
+        this.phuongPDG = phuongPDG;
+    }
+
+    /**
+     * @return the noiDung
+     */
+    public String getNoiDung() {
+        return noiDung;
+    }
+
+    /**
+     * @param noiDung the noiDung to set
+     */
+    public void setNoiDung(String noiDung) {
+        this.noiDung = noiDung;
+    }
+
+    /**
+     * @return the tiTrong
+     */
+    public float getTiTrong() {
+        return tiTrong;
+    }
+
+    /**
+     * @param tiTrong the tiTrong to set
+     */
+    public void setTiTrong(float tiTrong) {
+        this.tiTrong = tiTrong;
+    }
 }

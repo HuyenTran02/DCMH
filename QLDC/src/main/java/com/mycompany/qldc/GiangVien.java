@@ -11,40 +11,21 @@ import java.util.Date;
  * @author Admin
  */
 public class GiangVien {
-    private int id;
-    private String name;
+    private String MaGV;
+    private String ten;
     private Date ngaySinh;
     private String hocVi;
     private String chucVu;
 
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
+    public GiangVien(){}
+    
+    public GiangVien(String MaGV, String ten, Date ngaySinh, String hocVi, String chucVu){
+        this.MaGV = MaGV;
+        this.chucVu = chucVu;
+        this.hocVi = hocVi;
+        this.ngaySinh = ngaySinh;
+        this.ten = ten;
     }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
     /**
      * @return the ngaySinh
      */
@@ -85,6 +66,34 @@ public class GiangVien {
      */
     public void setChucVu(String chucVu) {
         this.chucVu = chucVu;
+    }
+
+    /**
+     * @return the MaGV
+     */
+    public String getMaGV() {
+        return MaGV;
+    }
+
+    /**
+     * @param MaGV the MaGV to set
+     */
+    public void setMaGV(String MaGV) {
+        this.MaGV = MaGV;
+    }
+
+    /**
+     * @return the ten
+     */
+    public String getTen() {
+        return ten;
+    }
+
+    /**
+     * @param ten the ten to set
+     */
+    public void setTen(String ten) {
+        this.ten = ten;
     }
     
 }

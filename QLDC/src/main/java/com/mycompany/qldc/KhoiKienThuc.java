@@ -12,6 +12,12 @@ public class KhoiKienThuc {
     private int id;
     private String ten;
 
+    public KhoiKienThuc(){}
+    
+     public KhoiKienThuc(int id, String ten){
+         this.id=id;
+         this.ten = ten;
+     }
     
     /**
      * @return the id
