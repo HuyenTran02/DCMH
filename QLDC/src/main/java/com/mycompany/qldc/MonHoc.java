@@ -5,160 +5,163 @@
 package com.mycompany.qldc;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
  * @author Admin
  */
-public class MonHoc {
-    private String id;
-    private String ten;
+public class MonHoc implements Comparable {
+
+    private static int id = 1;
+    private int maMon;
+    private String tenMon;
     private String moTa;
-    private float soTC;
-    private KhoiKienThuc kt;
-    private List<MonHoc> dstq;
-    private List<MonHoc> dstr;
-    
-    public MonHoc() {}
+    private int soTinChi;
+    private KhoiKienThuc khoiKienThuc;
+    private List<MonHoc> dsMonHocTruoc;
+    private List<MonHoc> dsMonHocTienQuyet;
 
-    public MonHoc(String id, String ten, String moTa, float soTC, KhoiKienThuc kt) {
-        this.id = id;
-        this.moTa = moTa;
-        this.soTC = soTC;
-        this.ten = ten;
-        this.kt = kt;
+    public MonHoc() {
     }
 
-    public MonHoc(String id, String ten, String moTa, float soTC, KhoiKienThuc kt,
-            List<MonHoc> dstq, List<MonHoc> dstr) {
-        this.id = id;
+    public MonHoc(String tenMon, String moTa, int soTinChi, KhoiKienThuc khoiKienThuc) {
+        this.maMon = id;
+        this.tenMon = tenMon;
         this.moTa = moTa;
-        this.soTC = soTC;
-        this.ten = ten;
-        this.kt = kt;
-        this.dstq = dstq;
-        this.dstr = dstr;
+        this.soTinChi = soTinChi;
+        this.khoiKienThuc = khoiKienThuc;
+        this.dsMonHocTruoc = new ArrayList<>();
+        this.dsMonHocTienQuyet = new ArrayList<>();
+
+        id++;
     }
 
-    public MonHoc(String id, String ten, String moTa, float soTC, KhoiKienThuc kt, 
-            List<MonHoc> dstr) {
-        this.id = id;
-        this.moTa = moTa;
-        this.soTC = soTC;
-        this.ten = ten;
-        this.kt = kt;
-        this.dstr = dstr;
+    public int getMaMon() {
+        return maMon;
     }
 
-    public boolean checkList(MonHoc m) {
-        for (MonHoc mon : this.dstq) {
-            if (mon.equals(m) == true) {
-                return true;
+    public void setMaMon(int maMon) {
+        this.maMon = maMon;
+    }
+
+    public String getTenMon() {
+        return tenMon;
+    }
+
+    public void setTenMon(String tenMon) {
+        this.tenMon = tenMon;
+    }
+
+    public String getMoTa() {
+        return moTa;
+    }
+
+    public void setMoTa(String moTa) {
+        this.moTa = moTa;
+    }
+
+    public int getSoTinChi() {
+        return soTinChi;
+    }
+
+    public void setSoTinChi(int soTinChi) {
+        this.soTinChi = soTinChi;
+    }
+
+    public List<MonHoc> getDsMonHocTruoc() {
+        return dsMonHocTruoc;
+    }
+
+    public void setDsMonHocTruoc(List<MonHoc> dsMonHocTruoc) {
+        this.dsMonHocTruoc = dsMonHocTruoc;
+    }
+
+    public List<MonHoc> getDsMonHocTienQuyet() {
+        return dsMonHocTienQuyet;
+    }
+
+    public void setDsMonHocTienQuyet(List<MonHoc> dsMonHocTienQuyet) {
+        this.dsMonHocTienQuyet = dsMonHocTienQuyet;
+    }
+
+    public KhoiKienThuc getKhoiKienThuc() {
+        return khoiKienThuc;
+    }
+
+    public void setKhoiKienThuc(KhoiKienThuc khoiKienThuc) {
+        this.khoiKienThuc = khoiKienThuc;
+    }
+
+    @Override
+    public String toString() {
+        return "Ma Mon Hoc: " + maMon
+                + "\nTen Mon Hoc: " + tenMon
+                + "\nMo Ta: " + moTa
+                + "\nSo Tin Chi: " + soTinChi
+                + "\nKhoi Kien Thuc: " + khoiKienThuc
+                + "\n=============================";
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        var monHoc = (MonHoc) o;
+        var ketQuaSoSanh = this.soTinChi - monHoc.getSoTinChi();
+        if (ketQuaSoSanh == 0) {
+            ketQuaSoSanh = this.maMon - monHoc.getMaMon();
+        }
+        return ketQuaSoSanh;
+    }
+
+    public boolean themMonTienQuyet(MonHoc monHoc) {
+        if (this.dsMonHocTienQuyet.size() >= 3) {
+            return false;
+        }
+        for (var monHocTienQuyet : dsMonHocTienQuyet) {
+            if (monHocTienQuyet.getMaMon() == monHoc.getMaMon()) {
+                return false;
             }
         }
-        for (MonHoc mon : this.dstr) {
-            if (mon.equals(m) == true) {
+        this.dsMonHocTienQuyet.add(monHoc);
+        return true;
+    }
+
+    public boolean themMonHocTruoc(MonHoc monHoc) {
+        if (this.dsMonHocTruoc.size() >= 3) {
+            return false;
+        }
+        for (var monHocTruoc : dsMonHocTruoc) {
+            if (monHocTruoc.getMaMon() == monHoc.getMaMon()) {
+                return false;
+            }
+        }
+        this.dsMonHocTruoc.add(monHoc);
+        return true;
+    }
+
+    public boolean xoaMonTienQuyet(int maMon) {
+        if (this.dsMonHocTienQuyet.isEmpty()) {
+            return false;
+        }
+        for (var monHocTienQuyet : dsMonHocTienQuyet) {
+            if (monHocTienQuyet.getMaMon() == maMon) {
+                this.dsMonHocTienQuyet.remove(monHocTienQuyet);
                 return true;
             }
         }
         return false;
     }
-     
-    /**
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the ten
-     */
-    public String getTen() {
-        return ten;
-    }
-
-    /**
-     * @param ten the ten to set
-     */
-    public void setTen(String ten) {
-        this.ten = ten;
-    }
-
-    /**
-     * @return the moTa
-     */
-    public String getMoTa() {
-        return moTa;
-    }
-
-    /**
-     * @param moTa the moTa to set
-     */
-    public void setMoTa(String moTa) {
-        this.moTa = moTa;
-    }
-
-    /**
-     * @return the soTC
-     */
-    public float getSoTC() {
-        return soTC;
-    }
-
-    /**
-     * @param soTC the soTC to set
-     */
-    public void setSoTC(float soTC) {
-        this.soTC = soTC;
-    }
-
-    /**
-     * @return the kt
-     */
-    public KhoiKienThuc getKt() {
-        return kt;
-    }
-
-    /**
-     * @param kt the kt to set
-     */
-    public void setKt(KhoiKienThuc kt) {
-        this.kt = kt;
-    }
-
-    /**
-     * @return the dstq
-     */
-    public List<MonHoc> getDstq() {
-        return dstq;
-    }
-
-    /**
-     * @param dstq the dstq to set
-     */
-    public void setDstq(List<MonHoc> dstq) {
-        this.dstq = dstq;
-    }
-
-    /**
-     * @return the dstr
-     */
-    public List<MonHoc> getDstr() {
-        return dstr;
-    }
-
-    /**
-     * @param dstr the dstr to set
-     */
-    public void setDstr(List<MonHoc> dstr) {
-        this.dstr = dstr;
+    public boolean xoaMonHocTruoc(int maMon) {
+        if (this.dsMonHocTruoc.isEmpty()) {
+            return false;
+        }
+        for (var monHocTruoc : dsMonHocTruoc) {
+            if (monHocTruoc.getMaMon() == maMon) {
+                this.dsMonHocTruoc.remove(monHocTruoc);
+                return true;
+            }
+        }
+        return false;
     }
 }

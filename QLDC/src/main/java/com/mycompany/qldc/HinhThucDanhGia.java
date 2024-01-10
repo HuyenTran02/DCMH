@@ -8,68 +8,44 @@ package com.mycompany.qldc;
  *
  * @author Admin
  */
-public abstract class HinhThucDanhGia {
-    private int ma;
-    private String phuongPDG;
-    private String noiDung;
-    private float tiTrong;
-    public HinhThucDanhGia(){}
-    public abstract void them();
-    public abstract void xoa();
+class HinhThucDanhGia {
 
-    /**
-     * @return the ma
-     */
-    public int getMa() {
-        return ma;
+    private static int id = 1;
+    int maHinhThucDanhGia;
+    String phuongPhap;
+    String noiDung;
+
+    public HinhThucDanhGia() {
     }
 
-    /**
-     * @param ma the ma to set
-     */
-    public void setMa(int ma) {
-        this.ma = ma;
-    }
-
-    /**
-     * @return the phuongPDG
-     */
-    public String getPhuongPDG() {
-        return phuongPDG;
-    }
-
-    /**
-     * @param phuongPDG the phuongPDG to set
-     */
-    public void setPhuongPDG(String phuongPDG) {
-        this.phuongPDG = phuongPDG;
-    }
-
-    /**
-     * @return the noiDung
-     */
-    public String getNoiDung() {
-        return noiDung;
-    }
-
-    /**
-     * @param noiDung the noiDung to set
-     */
-    public void setNoiDung(String noiDung) {
+    public HinhThucDanhGia(String phuongPhap, String noiDung) {
+        this.maHinhThucDanhGia = id;
+        this.phuongPhap = phuongPhap;
         this.noiDung = noiDung;
+        
+        id++;
     }
 
-    /**
-     * @return the tiTrong
-     */
-    public float getTiTrong() {
-        return tiTrong;
+    public int getMaHinhThucDanhGia() {
+        return maHinhThucDanhGia;
     }
 
-    /**
-     * @param tiTrong the tiTrong to set
-     */
-    public void setTiTrong(float tiTrong) {
-        this.tiTrong = tiTrong;
+    public void setMaHinhThucDanhGia(int maHinhThucDanhGia) {
+        this.maHinhThucDanhGia = maHinhThucDanhGia;
+    }
+
+    public String getPhuongPhap() {
+        return phuongPhap;
+    }
+
+    public void setPhuongPhap(String phuongPhap) {
+        this.phuongPhap = phuongPhap;
+    }
+
+    @Override
+    public String toString() {
+        return "Ma Hinh Thuc Danh Gia: " + maHinhThucDanhGia
+                + "\nPhuong Phap: " + phuongPhap
+                + "\nNoi Dung: " + noiDung;
     }
 }
