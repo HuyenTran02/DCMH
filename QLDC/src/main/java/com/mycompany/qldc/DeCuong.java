@@ -4,111 +4,167 @@
  */
 package com.mycompany.qldc;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author Admin
  */
-public class DeCuong {
-    private String id;
-    private String mucTieu;
-    private String chuanDauRa;
-    private HeDaoTao he;
-    private GiangVien gV;
-    private MonHoc mh;
+class DeCuong implements Comparable {
 
-    public DeCuong(){}
-    
-    public DeCuong(String id, String mucTieu, String chuanDauRa, HeDaoTao he, GiangVien gV, MonHoc mh){
-        this.chuanDauRa = chuanDauRa;
-        this.gV = gV;
-        this.he = he;
-        this.id = id;
-        this.mh = mh;
+    private static int id = 1;
+    int maDeCuong;
+    MonHoc monHoc;
+    HeDaoTao heDaoTao;
+    List<String> mucTieu;
+    List<String> chuanDauRa;
+    List<String> noiDung;
+    GiangVien giangVien;
+    Map<HinhThucDanhGia, Integer> dsHinhThucDanhGia;
+
+    public DeCuong() {
+    }
+
+    public DeCuong(MonHoc monHoc, HeDaoTao heDaoTao, List<String> mucTieu, List<String> chuanDauRa, List<String> noiDung, GiangVien giangVien, Map<HinhThucDanhGia, Integer> dsHinhThucDanhGia) {
+        this.maDeCuong = id;
+        this.monHoc = monHoc;
+        this.heDaoTao = heDaoTao;
         this.mucTieu = mucTieu;
+        this.chuanDauRa = chuanDauRa;
+        this.noiDung = noiDung;
+        this.giangVien = giangVien;
+        this.dsHinhThucDanhGia = dsHinhThucDanhGia;
+
+        id++;
     }
 
-    /**
-     * @return the id
-     */
-    public String getId() {
-        return id;
+    public int getMaDeCuong() {
+        return maDeCuong;
     }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(String id) {
-        this.id = id;
+    public void setMaDeCuong(int maDeCuong) {
+        this.maDeCuong = maDeCuong;
     }
 
-    /**
-     * @return the mucTieu
-     */
-    public String getMucTieu() {
+    public MonHoc getMonHoc() {
+        return monHoc;
+    }
+
+    public void setMonHoc(MonHoc monHoc) {
+        this.monHoc = monHoc;
+    }
+
+    public HeDaoTao getHeDaoTao() {
+        return heDaoTao;
+    }
+
+    public void setHeDaoTao(HeDaoTao heDaoTao) {
+        this.heDaoTao = heDaoTao;
+    }
+
+    public List<String> getMucTieu() {
         return mucTieu;
     }
 
-    /**
-     * @param mucTieu the mucTieu to set
-     */
-    public void setMucTieu(String mucTieu) {
+    public void setMucTieu(List<String> mucTieu) {
         this.mucTieu = mucTieu;
     }
 
-    /**
-     * @return the chuanDauRa
-     */
-    public String getChuanDauRa() {
+    public List<String> getChuanDauRa() {
         return chuanDauRa;
     }
 
-    /**
-     * @param chuanDauRa the chuanDauRa to set
-     */
-    public void setChuanDauRa(String chuanDauRa) {
+    public void setChuanDauRa(List<String> chuanDauRa) {
         this.chuanDauRa = chuanDauRa;
     }
 
-    /**
-     * @return the he
-     */
-    public HeDaoTao getHe() {
-        return he;
+    public List<String> getNoiDung() {
+        return noiDung;
     }
 
-    /**
-     * @param he the he to set
-     */
-    public void setHe(HeDaoTao he) {
-        this.he = he;
+    public void setNoiDung(List<String> noiDung) {
+        this.noiDung = noiDung;
     }
 
-    /**
-     * @return the gV
-     */
-    public GiangVien getgV() {
-        return gV;
+    public GiangVien getGiangVien() {
+        return giangVien;
     }
 
-    /**
-     * @param gV the gV to set
-     */
-    public void setgV(GiangVien gV) {
-        this.gV = gV;
+    public void setGiangVien(GiangVien giangVien) {
+        this.giangVien = giangVien;
     }
 
-    /**
-     * @return the mh
-     */
-    public MonHoc getMh() {
-        return mh;
+    public Map<HinhThucDanhGia, Integer> getDsHinhThucDanhGia() {
+        return dsHinhThucDanhGia;
     }
 
-    /**
-     * @param mh the mh to set
-     */
-    public void setMh(MonHoc mh) {
-        this.mh = mh;
+    public void setDsHinhThucDanhGia(Map<HinhThucDanhGia, Integer> dsHinhThucDanhGia) {
+        this.dsHinhThucDanhGia = dsHinhThucDanhGia;
     }
-    
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append("Ma De Cuong: ").append(maDeCuong)
+                .append("\nMon Hoc: ").append(monHoc.getTenMon())
+                .append("\nHe Dao Tao: ").append(heDaoTao)
+                .append("\nMuc Tieu: ").append(String.join("\n - ", mucTieu))
+                .append("\nChuan Dau Ra: ").append(String.join("\n - ", chuanDauRa))
+                .append("\nNoi Dung: ").append(String.join("\n - ", noiDung))
+                .append("\nGiang Vien: ").append(giangVien.getTenGv())
+                .append("\n===== Hinh Thuc Danh Gia =====\n");
+
+        for (var entry : dsHinhThucDanhGia.entrySet()) {
+            HinhThucDanhGia hinhThucDanhGia = entry.getKey();
+            int tyTrong = entry.getValue();
+            result.append(hinhThucDanhGia.toString()).append(" - Ty trong: ").append(tyTrong).append("%\n=============================\n");
+        }
+
+        return result.toString();
+    }
+
+    public boolean themMonTienQuyet(MonHoc monHoc) {
+        return this.monHoc.themMonTienQuyet(monHoc);
+    }
+
+    public boolean themMonHocTruoc(MonHoc monHoc) {
+        return this.monHoc.themMonHocTruoc(monHoc);
+    }
+
+    public boolean xoaMonTienQuyet(int maMon) {
+        return this.monHoc.xoaMonTienQuyet(maMon);
+    }
+
+    public boolean xoaMonHocTruoc(int maMon) {
+        return this.monHoc.xoaMonHocTruoc(maMon);
+    }
+
+    public boolean themHinhThucDanhGia(int tyTrong, HinhThucDanhGia hinhThucDanhGia) {
+        for (var _hinhThucDanhGia : dsHinhThucDanhGia.entrySet()) {
+            if (_hinhThucDanhGia.getKey().getMaHinhThucDanhGia() == hinhThucDanhGia.getMaHinhThucDanhGia()) {
+                return false;
+            }
+        }
+        this.dsHinhThucDanhGia.put(hinhThucDanhGia, tyTrong);
+        return true;
+    }
+
+    public boolean xoaHinhThucDanhGia(int maHinhThucDanhGia) {
+        for (var _hinhThucDanhGia : dsHinhThucDanhGia.entrySet()) {
+            if (_hinhThucDanhGia.getKey().getMaHinhThucDanhGia() == maHinhThucDanhGia) {
+                this.dsHinhThucDanhGia.remove(_hinhThucDanhGia);
+                return true;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        var deCuong = (DeCuong) o;
+        return this.monHoc.compareTo(deCuong.getMonHoc());
+    }
 }

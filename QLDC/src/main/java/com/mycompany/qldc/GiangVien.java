@@ -4,96 +4,53 @@
  */
 package com.mycompany.qldc;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author Admin
  */
-public class GiangVien {
-    private String MaGV;
-    private String ten;
-    private Date ngaySinh;
-    private String hocVi;
-    private String chucVu;
+class GiangVien {
 
-    public GiangVien(){}
-    
-    public GiangVien(String MaGV, String ten, Date ngaySinh, String hocVi, String chucVu){
-        this.MaGV = MaGV;
-        this.chucVu = chucVu;
-        this.hocVi = hocVi;
-        this.ngaySinh = ngaySinh;
-        this.ten = ten;
-    }
-    /**
-     * @return the ngaySinh
-     */
-    public Date getNgaySinh() {
-        return ngaySinh;
+    private static int id = 1;
+    private int maGv;
+    private String tenGv;
+    private List<DeCuong> dsDeCuong;
+
+    public GiangVien() {
     }
 
-    /**
-     * @param ngaySinh the ngaySinh to set
-     */
-    public void setNgaySinh(Date ngaySinh) {
-        this.ngaySinh = ngaySinh;
+    public GiangVien(String tenGv) {
+        this.maGv = id;
+        this.tenGv = tenGv;
+        this.dsDeCuong = new ArrayList<>();
+
+        id++;
     }
 
-    /**
-     * @return the hocVi
-     */
-    public String getHocVi() {
-        return hocVi;
+    public int getMaGv() {
+        return maGv;
     }
 
-    /**
-     * @param hocVi the hocVi to set
-     */
-    public void setHocVi(String hocVi) {
-        this.hocVi = hocVi;
+    public void setMaGv(int maGv) {
+        this.maGv = maGv;
     }
 
-    /**
-     * @return the chucVu
-     */
-    public String getChucVu() {
-        return chucVu;
+    public String getTenGv() {
+        return tenGv;
     }
 
-    /**
-     * @param chucVu the chucVu to set
-     */
-    public void setChucVu(String chucVu) {
-        this.chucVu = chucVu;
+    public void setTenGv(String tenGv) {
+        this.tenGv = tenGv;
     }
 
-    /**
-     * @return the MaGV
-     */
-    public String getMaGV() {
-        return MaGV;
+    public List<DeCuong> getDsDeCuong() {
+        return dsDeCuong;
     }
 
-    /**
-     * @param MaGV the MaGV to set
-     */
-    public void setMaGV(String MaGV) {
-        this.MaGV = MaGV;
+    public void setDsDeCuong(List<DeCuong> dsDeCuong) {
+        this.dsDeCuong = dsDeCuong;
     }
-
-    /**
-     * @return the ten
-     */
-    public String getTen() {
-        return ten;
-    }
-
-    /**
-     * @param ten the ten to set
-     */
-    public void setTen(String ten) {
-        this.ten = ten;
-    }
-    
 }
