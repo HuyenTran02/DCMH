@@ -113,19 +113,6 @@ public class MonHoc implements Comparable {
         return ketQuaSoSanh;
     }
 
-    public boolean themMonTienQuyet(MonHoc monHoc) {
-        if (this.dsMonHocTienQuyet.size() >= 3) {
-            return false;
-        }
-        for (var monHocTienQuyet : dsMonHocTienQuyet) {
-            if (monHocTienQuyet.getMaMon() == monHoc.getMaMon()) {
-                return false;
-            }
-        }
-        this.dsMonHocTienQuyet.add(monHoc);
-        return true;
-    }
-
     public boolean themMonHocTruoc(MonHoc monHoc) {
         if (this.dsMonHocTruoc.size() >= 3) {
             return false;
@@ -139,17 +126,17 @@ public class MonHoc implements Comparable {
         return true;
     }
 
-    public boolean xoaMonTienQuyet(int maMon) {
-        if (this.dsMonHocTienQuyet.isEmpty()) {
+    public boolean themMonTienQuyet(MonHoc monHoc) {
+        if (this.dsMonHocTienQuyet.size() >= 3) {
             return false;
         }
         for (var monHocTienQuyet : dsMonHocTienQuyet) {
-            if (monHocTienQuyet.getMaMon() == maMon) {
-                this.dsMonHocTienQuyet.remove(monHocTienQuyet);
-                return true;
+            if (monHocTienQuyet.getMaMon() == monHoc.getMaMon()) {
+                return false;
             }
         }
-        return false;
+        this.dsMonHocTienQuyet.add(monHoc);
+        return true;
     }
 
     public boolean xoaMonHocTruoc(int maMon) {
@@ -159,6 +146,19 @@ public class MonHoc implements Comparable {
         for (var monHocTruoc : dsMonHocTruoc) {
             if (monHocTruoc.getMaMon() == maMon) {
                 this.dsMonHocTruoc.remove(monHocTruoc);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean xoaMonTienQuyet(int maMon) {
+        if (this.dsMonHocTienQuyet.isEmpty()) {
+            return false;
+        }
+        for (var monHocTienQuyet : dsMonHocTienQuyet) {
+            if (monHocTienQuyet.getMaMon() == maMon) {
+                this.dsMonHocTienQuyet.remove(monHocTienQuyet);
                 return true;
             }
         }

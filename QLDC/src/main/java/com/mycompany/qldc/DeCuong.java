@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -24,11 +25,12 @@ class DeCuong implements Comparable {
     List<String> noiDung;
     GiangVien giangVien;
     Map<HinhThucDanhGia, Integer> dsHinhThucDanhGia;
+    List<LoaiDiem> dsDiem;
 
     public DeCuong() {
     }
 
-    public DeCuong(MonHoc monHoc, HeDaoTao heDaoTao, List<String> mucTieu, List<String> chuanDauRa, List<String> noiDung, GiangVien giangVien, Map<HinhThucDanhGia, Integer> dsHinhThucDanhGia) {
+    public DeCuong(MonHoc monHoc, HeDaoTao heDaoTao, List<String> mucTieu, List<String> chuanDauRa, List<String> noiDung, GiangVien giangVien, Map<HinhThucDanhGia, Integer> dsHinhThucDanhGia, List<LoaiDiem> dsDiem) {
         this.maDeCuong = id;
         this.monHoc = monHoc;
         this.heDaoTao = heDaoTao;
@@ -37,8 +39,11 @@ class DeCuong implements Comparable {
         this.noiDung = noiDung;
         this.giangVien = giangVien;
         this.dsHinhThucDanhGia = dsHinhThucDanhGia;
+        this.dsDiem = dsDiem;
 
         id++;
+
+        this.giangVien.bienSoanDeCuong(this);
     }
 
     public int getMaDeCuong() {
@@ -105,6 +110,14 @@ class DeCuong implements Comparable {
         this.dsHinhThucDanhGia = dsHinhThucDanhGia;
     }
 
+    public List<LoaiDiem> getDsDiem() {
+        return dsDiem;
+    }
+
+    public void setDsDiem(List<LoaiDiem> dsDiem) {
+        this.dsDiem = dsDiem;
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
@@ -121,6 +134,24 @@ class DeCuong implements Comparable {
             HinhThucDanhGia hinhThucDanhGia = entry.getKey();
             int tyTrong = entry.getValue();
             result.append(hinhThucDanhGia.toString()).append(" - Ty trong: ").append(tyTrong).append("%\n=============================\n");
+        }
+
+        if (!dsDiem.isEmpty()) {
+            result.append("Loai Diem: ").append(dsDiem.stream().map(Enum::name).collect(Collectors.joining(", "))).append("\n");
+        }
+
+        result.append("Mon Hoc Truoc: ");
+        if (!monHoc.getDsMonHocTruoc().isEmpty()) {
+            result.append(monHoc.getDsMonHocTruoc().stream().map(MonHoc::toString).collect(Collectors.joining(", "))).append("\n");
+        } else {
+            result.append("Khong co\n");
+        }
+
+        result.append("Mon Hoc Tien Quyet: ");
+        if (!monHoc.getDsMonHocTienQuyet().isEmpty()) {
+            result.append(monHoc.getDsMonHocTienQuyet().stream().map(MonHoc::toString).collect(Collectors.joining(", "))).append("\n");
+        } else {
+            result.append("Khong co\n");
         }
 
         return result.toString();
@@ -143,6 +174,10 @@ class DeCuong implements Comparable {
     }
 
     public boolean themHinhThucDanhGia(int tyTrong, HinhThucDanhGia hinhThucDanhGia) {
+        if (this.dsHinhThucDanhGia.size() >= 4) {
+            return false;
+        }
+
         for (var _hinhThucDanhGia : dsHinhThucDanhGia.entrySet()) {
             if (_hinhThucDanhGia.getKey().getMaHinhThucDanhGia() == hinhThucDanhGia.getMaHinhThucDanhGia()) {
                 return false;

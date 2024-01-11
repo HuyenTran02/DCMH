@@ -6,6 +6,7 @@ package com.mycompany.qldc;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -77,8 +78,8 @@ class HeThongQuanLy {
         return false;
     }
 
-    public DeCuong taoDeCuong(MonHoc monHoc, HeDaoTao heDaoTao, List<String> mucTieu, List<String> chuanDauRa, List<String> noiDung, GiangVien giangVien, Map<HinhThucDanhGia, Integer> dsHinhThucDanhGia) {
-        DeCuong deCuong = new DeCuong(monHoc, heDaoTao, mucTieu, chuanDauRa, noiDung, giangVien, dsHinhThucDanhGia);
+    public DeCuong taoDeCuong(MonHoc monHoc, HeDaoTao heDaoTao, List<String> mucTieu, List<String> chuanDauRa, List<String> noiDung, GiangVien giangVien, Map<HinhThucDanhGia, Integer> dsHinhThucDanhGia, List<LoaiDiem> dsDiem) {
+        DeCuong deCuong = new DeCuong(monHoc, heDaoTao, mucTieu, chuanDauRa, noiDung, giangVien, dsHinhThucDanhGia, dsDiem);
         this.dsDeCuong.add(deCuong);
 
         return deCuong;
@@ -262,5 +263,23 @@ class HeThongQuanLy {
         } else {
             System.out.println("De cuong khong ton tai.");
         }
+    }
+
+    public void thongKeSoLuongDeCuongTheoSoTinChi() {
+        Map<Integer, Integer> bangDem = new HashMap();
+        for (var deCuong : dsDeCuong) {
+            var monHoc = deCuong.getMonHoc();
+            var tinChi = monHoc.getSoTinChi();
+            bangDem.put(tinChi, bangDem.getOrDefault(tinChi, 0) + 1);
+        }
+        
+        System.out.println("===== Thong Ke So Luong De Cuong Theo So Tin Chi =====");
+        for (var entry : bangDem.entrySet()) {
+            int soTinChi = entry.getKey();
+            int soLuong = entry.getValue();
+
+            System.out.println("So Tin Chi: " + soTinChi + " - So Luong De Cuong: " + soLuong);
+        }
+        System.out.println("=====================================================");
     }
 }
