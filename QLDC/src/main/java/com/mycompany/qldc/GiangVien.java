@@ -53,4 +53,8 @@ class GiangVien {
     public void setDsDeCuong(List<DeCuong> dsDeCuong) {
         this.dsDeCuong = dsDeCuong;
     }
+    
+    public boolean bienSoanDeCuong(DeCuong deCuong) {
+        return this.dsDeCuong.add(deCuong);
+    }
 }

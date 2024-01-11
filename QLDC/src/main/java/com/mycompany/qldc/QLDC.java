@@ -32,6 +32,7 @@ public class QLDC {
             System.out.println("6. Sap xep de cuong");
             System.out.println("7. Danh sach de cuong cua giao vien");
             System.out.println("8. Xuat de cuong hoan chinh");
+            System.out.println("9. Thong ke so luong de cuong theo tin chi");
             System.out.println("0. Thoat");
             System.out.print("Chon: ");
 
@@ -164,10 +165,62 @@ public class QLDC {
                         int maGiangVien = scanner.nextInt();
                         giangVien = heThongQuanLy.timKiemGiangVienBangMaGiangVien(maGiangVien);
 
+                        if (giangVien.getDsDeCuong().size() >= 5) {
+                            System.out.println("Giao vien " + giangVien.getTenGv() + " da duoc phan cong toi da so luong de cuong cho phep.");
+                            giangVien = null;
+                        }
+
                         if (giangVien == null) {
                             System.out.println("Khong tim thay Giang vien co ma " + maGiangVien + ". Vui long nhap lai.");
                         }
                     } while (giangVien == null);
+
+                    List<LoaiDiem> dsDiem = new ArrayList<>();
+                    boolean themLoaiDiem = true;
+
+                    do {
+                        System.out.println("Chon loai diem:");
+                        System.out.println("1. Qua Trinh");
+                        System.out.println("2. Diem Thi");
+                        System.out.println("3. Bai Tap");
+                        System.out.println("4. Hoan thanh");
+
+                        int loaiDiemChoice;
+                        System.out.print("Chon: ");
+                        loaiDiemChoice = scanner.nextInt();
+                        scanner.nextLine();
+
+                        LoaiDiem loaiDiem = null;
+                        switch (loaiDiemChoice) {
+                            case 1:
+                                loaiDiem = LoaiDiem.QUA_TRINH;
+                                break;
+                            case 2:
+                                loaiDiem = LoaiDiem.DIEM_THI;
+                                break;
+                            case 3:
+                                loaiDiem = LoaiDiem.BAI_TAP;
+                                break;
+                            case 4:
+                                if (dsDiem.size() < 2) {
+                                    System.out.println("Phai chon it nhat 2 loai diem. Vui long chon them.");
+                                    continue;
+                                }
+                                themLoaiDiem = false;
+                                break;
+                            default:
+                                System.out.println("Lua chon khong hop le. Vui long nhap lai");
+                        }
+
+                        if (themLoaiDiem && loaiDiem != null) {
+                            if (!dsDiem.contains(loaiDiem)) {
+                                dsDiem.add(loaiDiem);
+                                System.out.println("Da them loai diem " + loaiDiem.toString() + " thanh cong!");
+                            } else {
+                                System.out.println("Da ton tai loai diem " + loaiDiem.toString() + " trong de cuong. Vui long chon loai diem khac.");
+                            }
+                        }
+                    } while (themLoaiDiem);
 
                     Map<HinhThucDanhGia, Integer> dsHinhThucDanhGia = new HashMap();
 
@@ -210,7 +263,7 @@ public class QLDC {
                         } else {
                             System.out.println("Hinh thuc danh gia da ton tai trong de cuong.");
                         }
-                        
+
                         if (tongTyTrong == 100) {
                             themTiep = false;
                             continue;
@@ -227,7 +280,7 @@ public class QLDC {
                         i++;
                     }
 
-                    var deCuong = heThongQuanLy.taoDeCuong(monHoc, heDaoTao, dsMucTieu, dsChuanDauRa, dsNoiDung, giangVien, dsHinhThucDanhGia);
+                    var deCuong = heThongQuanLy.taoDeCuong(monHoc, heDaoTao, dsMucTieu, dsChuanDauRa, dsNoiDung, giangVien, dsHinhThucDanhGia, dsDiem);
                     if (deCuong != null) {
                         System.out.println("Da tao De cuong thanh cong!");
                         heThongQuanLy.xuatDeCuongHoanChinh(deCuong.getMaDeCuong());
@@ -237,8 +290,166 @@ public class QLDC {
                     break;
                 }
 
-                case 2:
+                case 2: {
+                    int luaChonPhu;
+
+                    do {
+                        System.out.println("===== Cap nhat thong tin de cuong =====");
+                        System.out.println("1. Sua noi dung");
+                        System.out.println("2. Them mon hoc truoc");
+                        System.out.println("3. Them mon hoc tien quyet");
+                        System.out.println("4. Xoa mon hoc truoc");
+                        System.out.println("5. Xoa mon tien quyet");
+                        System.out.println("6. Them hinh thuc danh gia");
+                        System.out.println("7. Xoa hinh thuc danh gia");
+                        System.out.println("8. Quay lai");
+
+                        System.out.print("Chon: ");
+                        luaChonPhu = scanner.nextInt();
+                        scanner.nextLine();
+
+                        switch (luaChonPhu) {
+                            case 2: {
+                                System.out.println("===== Them mon hoc truoc =====");
+
+                                System.out.println("Danh sach mon hoc trong he thong:");
+                                for (MonHoc monHoc : heThongQuanLy.getDsMonHoc()) {
+                                    System.out.println(monHoc.getMaMon() + ". " + monHoc.getTenMon());
+                                }
+
+                                System.out.print("Nhap ma de cuong: ");
+                                int maDeCuong = scanner.nextInt();
+                                scanner.nextLine();
+
+                                DeCuong deCuong = heThongQuanLy.timKiemDeCuongBangMa(maDeCuong);
+                                if (deCuong == null) {
+                                    System.out.println("Khong tim thay de cuong co ma " + maDeCuong);
+                                    break;
+                                }
+
+                                System.out.print("Nhap ma mon hoc truoc: ");
+                                int maMonHocTruoc = scanner.nextInt();
+                                scanner.nextLine();
+
+                                MonHoc monHocTruoc = heThongQuanLy.timKiemMonHocBangMaMonHoc(maMonHocTruoc);
+                                if (monHocTruoc == null) {
+                                    System.out.println("Khong tim thay mon hoc co ma" + maMonHocTruoc);
+                                    break;
+                                }
+
+                                boolean ketQua = heThongQuanLy.themMonHocTruoc(maDeCuong, monHocTruoc);
+
+                                if (ketQua) {
+                                    System.out.println("Them mon hoc truoc thanh cong.");
+                                } else {
+                                    System.out.println("Khong the them mon hoc truoc. Da dat den gioi han hoac mon hoc truoc da ton tai.");
+                                }
+
+                                break;
+                            }
+                            case 3: {
+                                System.out.println("===== Them mon hoc tien quyet =====");
+
+                                System.out.println("Danh sach mon hoc trong he thong:");
+                                for (MonHoc monHoc : heThongQuanLy.getDsMonHoc()) {
+                                    System.out.println(monHoc.getMaMon() + ". " + monHoc.getTenMon());
+                                }
+
+                                System.out.print("Nhap ma de cuong: ");
+                                int maDeCuong = scanner.nextInt();
+                                scanner.nextLine();
+
+                                DeCuong deCuong = heThongQuanLy.timKiemDeCuongBangMa(maDeCuong);
+                                if (deCuong == null) {
+                                    System.out.println("Khong tim thay de cuong co ma " + maDeCuong);
+                                    break;
+                                }
+
+                                System.out.print("Nhap ma mon hoc tien quyet: ");
+                                int maMonHocTienQuyet = scanner.nextInt();
+                                scanner.nextLine();
+
+                                MonHoc monHocTienQuyet = heThongQuanLy.timKiemMonHocBangMaMonHoc(maMonHocTienQuyet);
+                                if (monHocTienQuyet == null) {
+                                    System.out.println("Khong tim thay mon hoc co ma " + maMonHocTienQuyet);
+                                    break;
+                                }
+
+                                boolean ketQua = heThongQuanLy.themMonHocTienQuyet(maDeCuong, monHocTienQuyet);
+
+                                if (ketQua) {
+                                    System.out.println("Them mon hoc tien quyet thanh cong.");
+                                } else {
+                                    System.out.println("Khong the them mon hoc tien quyet. Da dat den gioi han hoac mon hoc tien quyet da ton tai.");
+                                }
+
+                                break;
+                            }
+                            case 4: {
+                                System.out.println("===== Xoa mon hoc truoc =====");
+
+                                System.out.print("Nhap ma de cuong: ");
+                                int maDeCuong = scanner.nextInt();
+                                scanner.nextLine();
+
+                                DeCuong deCuong = heThongQuanLy.timKiemDeCuongBangMa(maDeCuong);
+                                if (deCuong == null) {
+                                    System.out.println("Khong tim thay de cuong co ma " + maDeCuong);
+                                    break;
+                                }
+
+                                System.out.print("Nhap ma mon hoc truoc can xoa: ");
+                                int maMonHocTruoc = scanner.nextInt();
+                                scanner.nextLine();
+
+                                boolean ketQua = heThongQuanLy.xoaMonHocTruoc(maDeCuong, maMonHocTruoc);
+
+                                if (ketQua) {
+                                    System.out.println("Xoa mon hoc truoc thanh cong.");
+                                } else {
+                                    System.out.println("Khong the tim thay mon hoc truoc. Mon hoc truoc khong ton tai.");
+                                }
+
+                                break;
+                            }
+                            case 5: {
+                                System.out.println("===== Xoa mon hoc tien quyet =====");
+
+                                System.out.print("Nhap ma de cuong: ");
+                                int maDeCuong = scanner.nextInt();
+                                scanner.nextLine();
+
+                                DeCuong deCuong = heThongQuanLy.timKiemDeCuongBangMa(maDeCuong);
+                                if (deCuong == null) {
+                                    System.out.println("Khong tim thay de cuon co ma " + maDeCuong);
+                                    break;
+                                }
+
+                                System.out.print("Nhap ma mon hoc tien quyet can xoa: ");
+                                int maMonHocTienQuyet = scanner.nextInt();
+                                scanner.nextLine();
+
+                                boolean ketQua = heThongQuanLy.xoaMonHocTienQuyet(maDeCuong, maMonHocTienQuyet);
+
+                                if (ketQua) {
+                                    System.out.println("Xoa mon hoc tien quyet thanh cong.");
+                                } else {
+                                    System.out.println("Khong the xoa mon hoc tien quyet. Mon hoc tien quyet khong ton tai.");
+                                }
+
+                                break;
+                            }
+
+                            case 8:
+                                System.out.println("Quay lai man hinh chinh.");
+                                break;
+                            default:
+                                System.out.println("Lua chon khong hop le. Vui long nhap lai.");
+                        }
+                    } while (luaChonPhu != 8);
+
                     break;
+                }
                 case 3: {
                     System.out.print("Nhap ten hoac ma mon hoc: ");
                     String tuKhoa = scanner.nextLine();
@@ -321,6 +532,10 @@ public class QLDC {
                     scanner.nextLine();
 
                     heThongQuanLy.xuatDeCuongHoanChinh(maDeCuong);
+                    break;
+                }
+                case 9: {
+                    heThongQuanLy.thongKeSoLuongDeCuongTheoSoTinChi();
                     break;
                 }
                 case 0:

@@ -4,7 +4,8 @@
  */
 package com.mycompany.qldc;
 
-public enum LoaiHeDaoTao {
-    CHINH_QUY,
-    LIEN_THONG
+public enum LoaiDiem {
+    QUA_TRINH,
+    DIEM_THI,
+    BAI_TAP
 }
